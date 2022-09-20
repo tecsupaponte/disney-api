@@ -10,27 +10,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  password     String
-  name         String?
-  phone_number String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@map("users")
-}
+//model User {
+//  id           Int      @id @default(autoincrement())
+//  email        String   @unique
+//  password     String
+//  name         String?
+//  phone_number String?
+//  createdAt    DateTime @default(now())
+//  updatedAt    DateTime @updatedAt
+//
+//  @@map("users")
+//}
 
 model Character {
-  id         Int       @id @default(autoincrement())
-  name       String
-  date_birth DateTime?
-  image      String?
-  weight     Float?
-  history    String?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id          Int    @id @default(autoincrement())
+  image       String?
+  name        String
+  age         Int
+  weight      Float
+  info        String
+  appearances Int[]
 
   @@map("characters")
+}
+
+model Movie {
+  id           Int      @id @default(autoincrement())
+  title        String
+  release_date DateTime
+  rating       Int
+  genres   Genre[]
+
+  @@map("movies")
+}
+
+model Genre {
+  id     Int    @id @default(autoincrement())
+  image  String
+  movies Movie[]
+
+  @@map("genres")
 }
