@@ -1,20 +1,31 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "characters" (
+    "id" SERIAL NOT NULL,
+    "image" TEXT,
+    "name" TEXT NOT NULL,
+    "age" INTEGER NOT NULL,
+    "weight" DOUBLE PRECISION NOT NULL,
+    "info" TEXT NOT NULL,
+    "appearances" INTEGER[],
 
-  - You are about to drop the column `characters` on the `movies` table. All the data in the column will be lost.
-  - You are about to drop the `Genre` table. If the table is not empty, all the data it contains will be lost.
+    CONSTRAINT "characters_pkey" PRIMARY KEY ("id")
+);
 
-*/
--- AlterTable
-ALTER TABLE "movies" DROP COLUMN "characters";
+-- CreateTable
+CREATE TABLE "movies" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "release_date" TIMESTAMP(3) NOT NULL,
+    "rating" INTEGER NOT NULL,
 
--- DropTable
-DROP TABLE "Genre";
+    CONSTRAINT "movies_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "genres" (
     "id" SERIAL NOT NULL,
-    "image" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "image" TEXT,
 
     CONSTRAINT "genres_pkey" PRIMARY KEY ("id")
 );

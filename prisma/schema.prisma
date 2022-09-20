@@ -23,30 +23,33 @@ datasource db {
 //}
 
 model Character {
-  id          Int    @id @default(autoincrement())
-  image       String?
-  name        String
-  age         Int
-  weight      Float
-  info        String
-  appearances Int[]
+  id     Int     @id @default(autoincrement())
+  image  String?
+  name   String
+  age    Int
+  weight Float
+  info   String
+  movies Movie[]
 
   @@map("characters")
 }
 
 model Movie {
-  id           Int      @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   title        String
   release_date DateTime
   rating       Int
-  genres   Genre[]
+  createdAt    DateTime    @default(now())
+  genres       Genre[]
+  characters   Character[]
 
   @@map("movies")
 }
 
 model Genre {
-  id     Int    @id @default(autoincrement())
-  image  String
+  id     Int     @id @default(autoincrement())
+  name   String
+  image  String?
   movies Movie[]
 
   @@map("genres")
