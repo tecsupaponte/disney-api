@@ -1,9 +1,16 @@
-import { TestRouter, CharacterRouter, MovieRouter, GenreRouter } from "../components";
+import {
+  RegisterRouter,
+  LoginRouter,
+  CharacterRouter,
+  MovieRouter,
+  GenreRouter
+} from "../components";
 
 // cada vez que quiera agregar unaruta nueva,
 // creo el path e importo el componente
 const listRoutes = [
-  ["/test", TestRouter],
+  ["/register", RegisterRouter],
+  ["/login", LoginRouter],
   ["/character", CharacterRouter],
   ["/movie", MovieRouter],
   ["/genre", GenreRouter]

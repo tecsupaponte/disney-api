@@ -1,4 +1,5 @@
-export { default as TestRouter } from "./test-component/network";
-export { default as CharacterRouter} from "./characters/network";
-export { default as MovieRouter } from "./movies/network";
-export { default as GenreRouter } from "./genres/network";
+export { default as RegisterRouter } from "./register/network"
+export { default as LoginRouter } from "./login/network"
+export { default as CharacterRouter} from "./characters/network"
+export { default as MovieRouter } from "./movies/network"
+export { default as GenreRouter } from "./genres/network"

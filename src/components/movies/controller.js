@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client"
-import { query } from "express"
 
 const prisma = new PrismaClient()
 
@@ -23,7 +22,8 @@ export const findAll = async (req, res) => {
     try {
         const movies = await prisma.movie.findMany({
             include: {
-                genres: true
+                genres: true,
+                characters: true
             }
         })
         res.json({
@@ -106,16 +106,21 @@ export const findByGenre = async (req, res) => {
 }
 
 export const create = async (req, res) => {
-    try {
-        const { body } = req
+    const { body } = req
+    const { genres } = req.body
 
+    try {
         const movies = await prisma.movie.create({
+            include: {
+                genres: true,
+                characters: true
+            },
             data: {
-                title: req.body.title,
+                title: body.title,
                 release_date: "2012-04-23T18:25:43.511Z",
-                rating: req.body.rating,
+                rating: body.rating,
                 genres: {
-                    connect: [{ id: body.genres }]
+                    connect: genres
                 }
             }
         })
@@ -129,11 +134,12 @@ export const create = async (req, res) => {
             data: error.message,
         })
     }
+    console.log(genres)
 }
 
 export const update = async (req, res) => {
 
-    const id = Int(req.params)
+    const id = parseInt(req.params.id)
     const { body } = req
 
     try {
