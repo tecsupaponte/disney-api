@@ -20,10 +20,10 @@ export const findOne = async (req, res) => {
                 id: user.id,
                 email: user.email
             }, process.env.JWT_SECRET)
-            res.json({ message: "Welcome Back!", token: jwtToken });
+            res.json({ message: "Bienvenido!", token: jwtToken });
         }
         else {
-            res.json({ ok: false, message: "password invalid"})
+            res.json({ ok: false, message: "Contraseña Invalida!"})
         }
         
     } catch (error) {

@@ -10,7 +10,7 @@ export const sortQuery = async (req, res) => {
 	} else if (query.age) {
 		findByAge(req, res)
 	} else if (query.movies) {
-		findAndSortByDate(req, res)
+		findByMovie(req, res)
 	} else {
 		findAll(req, res)
 	}
@@ -28,6 +28,72 @@ export const findAll = async (req, res) => {
 						createdAt: true
 					}
 				}
+			}
+		})
+		res.json({
+			ok: true,
+			data: characters,
+		})
+	} catch (error) {
+		res.json({
+			ok: false,
+			data: error.message,
+		})
+	}
+}
+
+export const findByName = async (req, res) => {
+	try {
+		const characters = await prisma.character.findMany({
+			include: {
+				movies: true
+			},
+			where: {
+				name: req.query.name
+			}
+		})
+		res.json({
+			ok: true,
+			data: characters,
+		})
+	} catch (error) {
+		res.json({
+			ok: false,
+			data: error.message,
+		})
+	}
+}
+
+export const findByAge = async (req, res) => {
+	try {
+		const characters = await prisma.character.findMany({
+			include: {
+				movies: true
+			},
+			where: {
+				age: parseInt(req.query.age)
+			}
+		})
+		res.json({
+			ok: true,
+			data: characters,
+		})
+	} catch (error) {
+		res.json({
+			ok: false,
+			data: error.message,
+		})
+	}
+}
+
+export const findByMovie = async (req, res) => {
+	try {
+		const characters = await prisma.character.findMany({
+			include: {
+				movies: true
+			},
+			where: {
+				age: parseInt(req.query.age)
 			}
 		})
 		res.json({
@@ -87,11 +153,14 @@ export const update = async (req, res) => {
 	try {
 		const character = await prisma.character.update({
 			where: { id: id },
+			include: {
+				movies: true
+			},
 			data: {
 				image: body.image,
 				name: body.name,
 				age: parseInt(body.age),
-				weight: parseFloat(body.age),
+				weight: parseFloat(body.weight),
 				info: body.info,
 				movies: {
 					connect: body.movies

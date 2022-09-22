@@ -42,6 +42,10 @@ export const findByName = async (req, res) => {
 
 	try {
 		const movies = await prisma.movie.findMany({
+			include: {
+				characters: true,
+				genres: true
+			},
 			where: {
 				title: req.query.name
 			}
@@ -142,9 +146,20 @@ export const update = async (req, res) => {
 
 	try {
 		const movies = await prisma.movie.update({
+			include: {
+				genres: true,
+				characters: true
+			},
 			where: { id: id },
 			data: {
-				title: body.title
+				title: body.title,
+				rating: parseFloat(body.rating),
+				genres: {
+					connect: body.genres
+				},
+				characters: {
+					connect: body.characters
+				}
 			}
 		})
 		res.json({
@@ -155,6 +170,25 @@ export const update = async (req, res) => {
 		res.json({
 			ok: false,
 			data: error.message,
+		})
+	}
+}
+
+export const remove = async (req, res) => {
+	const id = parseInt(req.params.id)
+
+	try {
+		const movie = await prisma.movie.delete({
+			where: { id: id }
+		})
+		res.status(200).json({
+			ok: true,
+			data: "Movie deleted."
+		})
+	} catch (error) {
+		res.json({
+			ok: false,
+			data: error.message
 		})
 	}
 }

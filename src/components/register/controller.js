@@ -17,7 +17,9 @@ export const create = async (req, res) => {
 		res.json({
 			ok: true,
 			data: {
-				email: user.email
+				message: "Usuario Registrado",
+				email: user.email,
+				hassedPassword: hashedPassword
 			}
 		})
 	} catch (error) {
