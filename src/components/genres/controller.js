@@ -4,7 +4,11 @@ const prisma = new PrismaClient()
 
 export const findAll = async (req, res) => {
 	try {
-		const genres = await prisma.genre.findMany()
+		const genres = await prisma.genre.findMany({
+			include: {
+				movies: true
+			}
+		})
 		res.json({
 			ok: true,
 			data: genres,

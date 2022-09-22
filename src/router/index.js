@@ -9,8 +9,8 @@ import {
 // cada vez que quiera agregar unaruta nueva,
 // creo el path e importo el componente
 const listRoutes = [
-  ["/register", RegisterRouter],
-  ["/login", LoginRouter],
+  ["/auth/register", RegisterRouter],
+  ["/auth/login", LoginRouter],
   ["/character", CharacterRouter],
   ["/movie", MovieRouter],
   ["/genre", GenreRouter]

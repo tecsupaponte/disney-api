@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "prisma": {
+    "seed": "node -r esm prisma/seed.js"
+  },
   "scripts": {
     "dev": "nodemon -r esm src/index.js",
     "start": "node -r esm src/index.js"
